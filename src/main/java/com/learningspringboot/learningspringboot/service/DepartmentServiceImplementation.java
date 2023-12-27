@@ -1,6 +1,7 @@
 package com.learningspringboot.learningspringboot.service;
 
 import com.learningspringboot.learningspringboot.entity.Department;
+import com.learningspringboot.learningspringboot.error.DepartmentNotFoundException;
 import com.learningspringboot.learningspringboot.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,12 @@ public class DepartmentServiceImplementation implements DepartmentService {
     }
 
     @Override
-    public Optional<Department> fetchDepartmentById(Long departmentId) {
-        return departmentRepository.findById(departmentId);
+    public Optional<Department> fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+        Optional<Department> department= departmentRepository.findById(departmentId);
+        if(department.isEmpty()){
+            throw  new DepartmentNotFoundException("Department is not available");
+        }
+        return department;
     }
 
     @Override

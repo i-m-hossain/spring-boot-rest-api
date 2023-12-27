@@ -1,6 +1,7 @@
 package com.learningspringboot.learningspringboot.controller;
 
 import com.learningspringboot.learningspringboot.entity.Department;
+import com.learningspringboot.learningspringboot.error.DepartmentNotFoundException;
 import com.learningspringboot.learningspringboot.service.DepartmentService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class DepartmentController {
         return departmentService.saveDepartment(department);
     }
     @GetMapping(path="/department/{id}")
-    public Optional<Department> fetchDepartmentById(@PathVariable("id") Long departmentId){
+    public Optional<Department> fetchDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
         return departmentService.fetchDepartmentById(departmentId);
     }
     @DeleteMapping(path="/department/{id}")

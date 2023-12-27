@@ -1,6 +1,7 @@
 package com.learningspringboot.learningspringboot.service;
 
 import com.learningspringboot.learningspringboot.entity.Department;
+import com.learningspringboot.learningspringboot.error.DepartmentNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface DepartmentService {
 
    public List<Department> fetchDepartmentList();
 
-   public Optional<Department> fetchDepartmentById(Long id);
+   public Optional<Department> fetchDepartmentById(Long id) throws DepartmentNotFoundException;
 
    public void deleteDepartmentById(Long departmentId);
 
