@@ -20,6 +20,13 @@ spring:
 welcome:
   message: Hello, dev!!
 
+#actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 ---
 spring:
   config:
