@@ -46,12 +46,15 @@ public class DepartmentServiceImplementation implements DepartmentService {
         if(Objects.nonNull(department.getDepartmentName()) && !"".equalsIgnoreCase(department.getDepartmentName())){
             depDB.setDepartmentName(department.getDepartmentName());
         }
-        if(Objects.nonNull(department.getDepartmentCode()) && !"".equalsIgnoreCase(department.getDepartmentCode())){
-            depDB.setDepartmentCode(department.getDepartmentCode());
-        }
+
         if(Objects.nonNull(department.getDepartmentAddress()) && !"".equalsIgnoreCase(department.getDepartmentAddress())){
             depDB.setDepartmentAddress(department.getDepartmentAddress());
         }
+        if(Objects.nonNull(department.getDepartmentCode()) && !"".equalsIgnoreCase(department.getDepartmentCode())){
+            depDB.setDepartmentCode(department.getDepartmentCode());
+
+        }
+
         return departmentRepository.save(depDB);
     }
 
