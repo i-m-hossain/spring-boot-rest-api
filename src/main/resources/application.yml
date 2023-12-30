@@ -1,6 +1,30 @@
 server:
   port: 8090
 spring:
+  profiles:
+    active: dev
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/learningSpringBootDev
+    password: password
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+welcome:
+  message: Hello, dev!!
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
@@ -11,5 +35,21 @@ spring:
     hibernate:
       ddl-auto: update
 welcome:
-  message: Hello, world!!
+  message: Hello, prod!!
 
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/learningSpringBootQA
+    password: password
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+welcome:
+  message: Hello, qa!!
