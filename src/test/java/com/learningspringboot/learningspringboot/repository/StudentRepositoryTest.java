@@ -48,10 +48,48 @@ class StudentRepositoryTest {
                 .guardian(guardian)
                 .build();
         studentRepository.save(student);
-    }    @Test
+    }
+    @Test
     public void studentsList(){
         List<Student> studentList=studentRepository.findAll();
         System.out.println("student list= "+studentList);
+    }
+
+    @Test
+    public void findStudentByName(){
+        /*--using jpa----*/
+        List<Student> studentList = studentRepository.findStudentByFirstName("im");
+        System.out.println("student list= " + studentList);
+    }
+    @Test
+    public void findStudentByFirstNameContaining(){
+        List <Student> studentList = studentRepository.findByFirstNameContaining("imr");
+        System.out.println("Student list by firstname"+studentList);
+    }
+    //JPQL
+    @Test
+    public void findStudentByEmailId(){
+        Student student  =
+                studentRepository
+                        .getStudentByEmailAddress("imran.kuet14@gmail.com");
+        System.out.println("student by email"+ student);
+    }
+    /*--using native query----*/
+    @Test
+    public  void getStudentByEmail(){
+        List<Student> studentList = studentRepository.getStudentByEmail("imran.kuet14@gmail.com");
+        System.out.println("student list= " + studentList);
+    }
+    /*--- using query with named param--*/
+    @Test
+    public void getStudentByEmailWithNameParam(){
+        List<Student> studentList = studentRepository.getStudentByEmailWithNameParam("imran.kuet14@gmail.com");
+        System.out.println("student list: "+studentList);
+    }
+    @Test
+    public void updateStudentNameByEmailId(){
+        int result = studentRepository.updateStudentNameByEmailId("Mr. Imran", "imran.kuet14@gmail.com");
+        System.out.println(result);
     }
 
 }
