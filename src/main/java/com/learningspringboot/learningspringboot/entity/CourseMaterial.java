@@ -1,19 +1,34 @@
 package com.learningspringboot.learningspringboot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString(exclude = "course") // this is for lazy loading fetching which will not fetch course
 public class CourseMaterial {
     @Id
+    @SequenceGenerator(
+            name="course_material_sequence",
+            sequenceName = "course_material_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "course_material_sequence"
+    )
     private Long courseMaterialId;
     private String url;
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "course_id",
+            referencedColumnName = "courseId"
+    )
+    private Course course;
 }
