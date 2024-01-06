@@ -5,6 +5,10 @@ import com.learningspringboot.learningspringboot.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -30,5 +34,30 @@ class CourseRepositoryTest {
                 .teacher(teacher)
                 .build();
         repository.save(course);
+    }
+    @Test
+    public void findAllPagination(){
+        Pageable firstPageWithThreeRecords= PageRequest.of(0,3);
+        Pageable secondPageWithTwoRecords = PageRequest.of(1, 2);
+        List<Course> courses = repository.findAll(secondPageWithTwoRecords).getContent();
+        long totalElements = repository.findAll(firstPageWithThreeRecords).getTotalElements();
+        long totalPages = repository.findAll(firstPageWithThreeRecords).getTotalPages();
+
+        System.out.println("courses = " + courses);
+        System.out.println("totalElements = " + totalElements);
+        System.out.println("totalPages = " + totalPages);
+
+    }
+    @Test
+    public void findAllWithSorting(){
+        Pageable sortByTitle = PageRequest.of(0,3, Sort.by("title"));
+        Pageable sortByCreditDesc = PageRequest.of(0,3, Sort.by("credit").descending());
+        Pageable sortByTitleAndCreditDesc = PageRequest
+                .of(0, 3, Sort.by("title")
+                        .descending()
+                        .and(
+                                Sort.by("credit")
+                        )
+                );
     }
 }
