@@ -1,6 +1,7 @@
 package com.learningspringboot.learningspringboot.repository;
 
 import com.learningspringboot.learningspringboot.entity.Course;
+import com.learningspringboot.learningspringboot.entity.Student;
 import com.learningspringboot.learningspringboot.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,30 @@ class CourseRepositoryTest {
                                 Sort.by("credit")
                         )
                 );
+    }
+    @Test
+    public void printFindByTitleContaining(){
+        Pageable firstPageTenRecords = PageRequest.of(0, 10);
+        List<Course> courses = repository.findByTitleContaining("D", firstPageTenRecords).getContent();
+
+    }
+    @Test
+    public void saveCourseWithStudentAndTeacher(){
+        Teacher teacher = Teacher.builder()
+                .firstName("Md")
+                .lastName("hossain")
+                .build();
+        Student student1 = Student.builder()
+                .firstName("peter")
+                .lastName("parker")
+                .emailId("peter@parker2.com")
+                .build();
+        Course course = Course.builder()
+                .title("AI")
+                .credit(4)
+                .teacher(teacher)
+                .build();
+        course.addStudents(student1);
+        Course save = repository.save(course);
     }
 }
